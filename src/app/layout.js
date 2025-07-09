@@ -1,7 +1,6 @@
 import { Oxygen } from "next/font/google"; // Import Oxygen
 import "./globals.css";
 import { CartProvider } from "@/context/cartContext";
-import { SessionProvider } from "next-auth/react";
 
 // Configure Oxygen font
 const oxygen = Oxygen({

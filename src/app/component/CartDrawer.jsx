@@ -8,6 +8,7 @@ import Link from "next/link";
 import { FaTrashAlt } from "react-icons/fa"; // For remove icon
 import { HiMinusSm, HiPlusSm } from "react-icons/hi"; // For quantity control icons
 import { useRouter } from "next/navigation"; // To programmatically close the drawer after checkout
+import Image from "next/image";
 
 export default function CartDrawer({ isOpen, onClose }) {
   const {
@@ -144,9 +145,12 @@ export default function CartDrawer({ isOpen, onClose }) {
                   />
 
                   {/* Replaced Next/image with <img> tag for product images */}
-                  <img
+                  <Image
                     src={imageUrl}
                     alt={productDetails.name || "Product image"}
+                    width={80}
+                    height={80}
+                    unoptimized
                     className="object-cover rounded-md mr-3 flex-shrink-0 w-[80px] h-[80px]" // Apply width and height directly or via CSS
                   />
                   <div className="flex-grow">

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 // import { useSession } from "next-auth/react";
 
 export default function Allproduct() {
@@ -64,9 +65,12 @@ export default function Allproduct() {
             key={product._id}
             className=" p-1 cursor-pointer  border-b-2 border-gray-200"
           >
-            <img
+            <Image
               src={product.images[0]}
               alt={product.name}
+              width={500}
+              height={500}
+              unoptimized
               className="w-full h-50 border border-gray-300 md:h-90 xl:h-110 object-cover "
             />
             <h3 className="md:text-xl font-semibold text-start mt-3">

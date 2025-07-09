@@ -9,18 +9,29 @@ export async function middleware(request) {
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/dashboard/expence")
   ) {
-    const token = request.cookies.get("token")?.value; // Reverted token retrieval
+    const token = request.cookies.get("token")?.value;
 
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 
-    try {
-      verifyToken(token); // Reverted verification logic
-      return NextResponse.next();
-    } catch (err) {
+    const decoded = await verifyToken(token);
+
+    if (!decoded) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
+
+    // Attach user info to the request headers
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-user-id', decoded.id);
+    requestHeaders.set('x-user-name', decoded.name);
+    requestHeaders.set('x-user-role', decoded.role);
+
+    return NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    });
   }
 
   // ✅ dashboard ছাড়া অন্য সব রুটে visitor track করো

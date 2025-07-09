@@ -9,6 +9,7 @@ import {
   Star, // Icon for Featured
   ExternalLink, // Icon for Size Guide
 } from "lucide-react";
+import Image from "next/image";
 
 const DashboardAllProduct = ({ product, handleUpdate, handleDelete }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -52,7 +53,6 @@ const DashboardAllProduct = ({ product, handleUpdate, handleDelete }) => {
         visibility: product.visibility || "public",
         adminNote: product.adminNote || "",
       });
-      console.log("formData after useEffect:", formData); // Add this line
     }
   }, [product]); // Re-run when `product` prop changes
 
@@ -120,12 +120,15 @@ const DashboardAllProduct = ({ product, handleUpdate, handleDelete }) => {
     <>
       {/* Product Card */}
       <div className="bg-cyan-200  rounded-xl shadow-xl hover:shadow-purple-500/30 transition-all duration-300 p-6 cursor-pointer transform hover:-translate-y-1">
-        <img
+        <Image
           src={
             product.images?.[0] ||
             "https://placehold.co/400x300/333/999?text=No+Image"
           }
           alt={product.name}
+          width={500}
+          height={500}
+          unoptimized
           className="w-full h-48 object-cover rounded-lg mb-4 "
         />
         <h2 className="text-xl font-bold  mb-2 leading-tight">

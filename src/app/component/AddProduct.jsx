@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 // Importing icons from react-icons/fi
 import { FiUpload, FiImage, FiCheck, FiX } from "react-icons/fi";
+import Image from "next/image";
 
 // Importing Select component from react-select for dropdowns
 import Select from "react-select";
@@ -74,7 +75,7 @@ export default function AddProduct({ setOpenAddproduct }) {
         sizes: [{ size: "Regular Size", quantity: 0 }],
       }));
     }
-  }, []); // Empty dependency array means this runs once on mount
+  }, [formData.sizes.length]); // Empty dependency array means this runs once on mount
 
   // Handler for input changes
   const handleChange = (e) => {
@@ -772,9 +773,12 @@ export default function AddProduct({ setOpenAddproduct }) {
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                   {uploadedImages.map((img, index) => (
                     <div key={index} className="relative group">
-                      <img
+                      <Image
                         src={img}
                         alt={`Product preview ${index + 1}`}
+                        width={500}
+                        height={500}
+                        unoptimized
                         className="w-full h-32 object-cover rounded-md"
                       />
                       <button

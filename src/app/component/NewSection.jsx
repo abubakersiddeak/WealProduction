@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useRouter } from "next/navigation";
 import ProductSkeleton from "../ui/skeleton/ProductSkeleton";
+import Image from "next/image";
 
 export default function NewSection() {
   const [products, setProducts] = useState([]);
@@ -156,9 +157,12 @@ export default function NewSection() {
                 className="relative cursor-pointer w-70 md:w-80 bg-white overflow-hidden hover:scale-[1.02] shrink-0 transition-all duration-500"
               >
                 <div className="relative z-10 flex items-center justify-center h-90 md:h-120 ">
-                  <img
+                  <Image
                     src={p.images[0]}
                     alt={p.name}
+                    width={500}
+                    height={500}
+                    unoptimized
                     className="h-full w-full border border-gray-300 object-cover transition-all duration-500 ease-in-out group-hover:scale-105"
                   />
                 </div>

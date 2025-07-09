@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Footer from "../component/Footer";
 import Navbar from "../component/Navbar";
 import { FaShoppingBag, FaTrashAlt, FaSmileBeam } from "react-icons/fa";
+import Image from "next/image";
 
 import { HiMinusSm, HiPlusSm } from "react-icons/hi"; // Icons for quantity control
 
@@ -179,9 +180,12 @@ export default function CartPage() {
 
                 <div className="flex items-center gap-4 flex-grow">
                   <div className="flex-shrink-0 w-28 h-28 sm:w-32 sm:h-32 rounded-lg overflow-hidden border border-gray-200 flex items-center justify-center">
-                    <img
+                    <Image
                       src={item.product.images[0] || "/placeholder-product.jpg"}
                       alt={item.product.name || "Product image"}
+                      width={500}
+                      height={500}
+                      unoptimized
                       className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                     />
                   </div>

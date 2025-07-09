@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useCart } from "@/context/cartContext";
 import CartDrawer from "./CartDrawer";
 import Link from "next/link"; // Import Link for navigation
+import Image from "next/image";
 
 export default function Product({ product }) {
   const { addToCart } = useCart();
@@ -149,10 +150,13 @@ export default function Product({ product }) {
           {/* Thumbnails */}
           <div className="flex gap-2 overflow-x-auto max-w-full px-2">
             {images.map((img, index) => (
-              <img
+              <Image
                 key={index} // Using index here is acceptable as thumbnails are static and not reordered
                 src={img}
                 alt={`Thumbnail ${index}`}
+                width={64}
+                height={64}
+                unoptimized
                 className={`w-16 h-16 object-cover cursor-pointer border ${
                   activeImage === img ? "border-black" : "border-gray-300"
                 }`}
@@ -305,9 +309,12 @@ export default function Product({ product }) {
                   href={`/dynamic/${relProduct._id?.$oid || relProduct._id}`}
                   className="block"
                 >
-                  <img
+                  <Image
                     src={relProduct.images[0] || "/placeholder-product.jpg"}
                     alt={relProduct.name}
+                    width={500}
+                    height={500}
+                    unoptimized
                     className="w-full h-48 object-cover object-center transform transition-transform duration-300 hover:scale-105"
                   />
                 </Link>

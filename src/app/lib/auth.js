@@ -1,16 +1,20 @@
-import jwt from "jsonwebtoken";
+import { SignJWT, jwtVerify } from "jose";
 
-const SECRET = process.env.JWT_SECRET;
+const SECRET = new TextEncoder().encode(process.env.JWT_SECRET);
+const ALG = "HS256";
 
-export function generateToken(user) {
-  return jwt.sign({ id: user._id, name: user.name, role: user.role }, SECRET, {
-    expiresIn: "1d",
-  });
+export async function generateToken(user) {
+  const token = await new SignJWT({ id: user._id, name: user.name, role: user.role })
+    .setProtectedHeader({ alg: ALG })
+    .setExpirationTime("1d")
+    .sign(SECRET);
+  return token;
 }
 
-export function verifyToken(token) {
+export async function verifyToken(token) {
   try {
-    return jwt.verify(token, SECRET);
+    const { payload } = await jwtVerify(token, SECRET);
+    return payload;
   } catch (error) {
     return null;
   }

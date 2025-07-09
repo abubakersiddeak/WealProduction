@@ -60,3 +60,11 @@ export async function PUT(request, { params }) {
     // --- End Stock Notification Logic ---
 
     return NextResponse.json(updatedProduct);
+  } catch (error) {
+    console.error("Error updating product:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error", details: error.message },
+      { status: 500 }
+    );
+  }
+}

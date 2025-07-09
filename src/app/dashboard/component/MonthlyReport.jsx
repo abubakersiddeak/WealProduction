@@ -27,21 +27,20 @@ export default function MonthlyReport() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchSummary = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/businessReport?month=${month}`);
-      if (!res.ok) throw new Error("Failed to fetch data");
-      const data = await res.json();
-      setSummary(data);
-    } catch (err) {
-      setError(err.message || "An error occurred");
-    }
-    setLoading(false);
-  };
-
   useEffect(() => {
+    const fetchSummary = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/businessReport?month=${month}`);
+        if (!res.ok) throw new Error("Failed to fetch data");
+        const data = await res.json();
+        setSummary(data);
+      } catch (err) {
+        setError(err.message || "An error occurred");
+      }
+      setLoading(false);
+    };
     fetchSummary();
   }, [month]);
 
