@@ -1,0 +1,71 @@
+# === Node.js ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# === Environment Files ===
+.env
+.env.*.local
+!.env.example
+
+# === Next.js Build Output ===
+.next/
+out/
+build/
+
+# === Logs ===
+logs/
+*.log
+*.log.*
+yarn-error.log
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Editor/IDE ===
+.vscode/
+.idea/
+*.swp
+
+# === Dependency directories ===
+.bun/
+.cache/
+
+# === Test Coverage ===
+coverage/
+
+# === Misc ===
+*.tgz
+*.tar.gz
+
+# === Local development certificates ===
+*.pem
+
+# === Mac/Linux Trash ===
+.Trash-*
+
+# === Temporary files ===
+tmp/
+temp/
+*.tmp
+
+# === GitHub Codespaces ===
+.devcontainer/
+
+# === Optional: Ignore public files uploaded dynamically ===
+public/uploads/
+
+# === Optional: Ignore database or local data ===
+*.sqlite
+*.db
+*.pid
+
+# === Optional: Ignore local images or cache ===
+images/
+.cache-loader/
+
+# === Optional: Ignore custom dist folders ===
+dist/
