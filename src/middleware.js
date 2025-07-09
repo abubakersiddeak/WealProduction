@@ -17,7 +17,7 @@ export async function middleware(request) {
 
     const decoded = await verifyToken(token);
 
-    if (!decoded) {
+    if (!decoded || decoded.role !== "admin") {
       return NextResponse.redirect(new URL("/login", request.url));
     }
 

@@ -30,7 +30,7 @@ export async function POST(req) {
 
     const token = await generateToken(user);
 
-    const cookieStore = cookies(); // Use cookies() directly
+    const cookieStore = await cookies(); // Use cookies() directly
     cookieStore.set({
       name: "token",
       value: token,
