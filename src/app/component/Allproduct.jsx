@@ -1,44 +1,33 @@
 "use client";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-// import { useSession } from "next-auth/react";
+import ProductCard from "./ProductCard";
 
 export default function Allproduct() {
-  // const { data: session } = useSession();
-
   const [products, setProducts] = useState([]);
-  const itemsPerPage = 8; // 2 rows * 4 columns
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const router = useRouter();
+
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProducts = async (page) => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/Product`
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/Product?page=${page}&limit=8&sort=random`
         );
         if (!res.ok) {
           throw new Error("Product fetching failed from API in GET method");
         }
         const data = await res.json();
-
-        const rendomizeData = data.products.sort(() => Math.random() - 0.5);
-        setProducts(rendomizeData || []);
+        setProducts(data.products || []);
+        setTotalPages(Math.ceil(data.total / 8));
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchProducts();
-  }, []);
-
-  const totalPages = Math.ceil(products.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const selectedProducts = products.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+    fetchProducts(currentPage);
+  }, [currentPage]);
 
   const handlePrev = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -46,10 +35,6 @@ export default function Allproduct() {
 
   const handleNext = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
-  };
-  const productClick = (e, product) => {
-    e.preventDefault();
-    router.push(`/dynamic/${product._id}`);
   };
 
   return (
@@ -59,31 +44,11 @@ export default function Allproduct() {
       </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {selectedProducts.map((product) => (
-          <button
-            onClick={(e) => productClick(e, product)}
-            key={product._id}
-            className=" p-1 cursor-pointer  border-b-2 border-gray-200"
-          >
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              width={500}
-              height={500}
-              unoptimized
-              className="w-full h-50 border border-gray-300 md:h-90 xl:h-110 object-cover "
-            />
-            <h3 className="md:text-xl font-semibold text-start mt-3">
-              {product.name}
-            </h3>
-            <p className="text-gray-600 text-start mt-1">
-              {product.salePrice} TK
-            </p>
-          </button>
+        {products.map((product) => (
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
 
-      {/* Pagination Controls */}
       <div className="flex justify-center items-center gap-2 mt-10">
         <button
           onClick={handlePrev}

@@ -18,6 +18,8 @@ const extraProfitSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+extraProfitSchema.index({ createdAt: -1 });
+
 const ExtraProfit =
   mongoose.models.ExtraProfit ||
   mongoose.model("ExtraProfit", extraProfitSchema);

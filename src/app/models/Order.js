@@ -41,6 +41,8 @@ const OrderSchema = new mongoose.Schema(
   }
 );
 
+OrderSchema.index({ createdAt: -1 });
+
 // ✅ Safe model declaration with optional chaining
 const Order = mongoose.models?.Order || mongoose.model("Order", OrderSchema);
 

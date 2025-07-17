@@ -136,10 +136,7 @@ export default function MonthlyReport() {
                 <span className="font-semibold">Offline Profit:</span> ৳{" "}
                 {summary.totalProfit?.toLocaleString("en-US") || 0}
               </p>
-              <p>
-                <span className="font-semibold">Online Profit:</span> ৳{" "}
-                {summary.totalProfit?.toLocaleString("en-US") || 0}
-              </p>
+
               <p>
                 <span className="font-semibold text-green-600">
                   Total Profit:

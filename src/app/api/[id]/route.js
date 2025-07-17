@@ -8,6 +8,32 @@ import { v2 as cloudinary } from "cloudinary";
 // Cloudinary config (rest of the file remains the same until PUT)
 // ...
 
+export async function GET(request, { params }) {
+  await connectMongodb();
+
+  const { id } = params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return NextResponse.json({ error: "Invalid product ID" }, { status: 400 });
+  }
+
+  try {
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return NextResponse.json(
+      { error: "Internal Server Error", details: error.message },
+      { status: 500 }
+    );
+  }
+}
+
 export async function PUT(request, { params }) {
   await connectMongodb();
 
@@ -68,3 +94,4 @@ export async function PUT(request, { params }) {
     );
   }
 }
+

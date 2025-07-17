@@ -15,6 +15,28 @@ import AddProduct from "../component/AddProduct";
 import ShowOrder from "../component/ShowOrder";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+
+const PDFDownloadLink = dynamic(
+  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
+  {
+    ssr: false,
+  }
+);
+
+const MonthlyReportPdf = dynamic(
+  () => import("../component/dashboard/MonthlyReportPdf"),
+  {
+    ssr: false,
+  }
+);
+
+const PdfDownloadClient = dynamic(
+  () => import("../component/dashboard/PdfDownloadClient"),
+  {
+    ssr: false,
+  }
+);
 import ShowAllProduct from "../component/ShowAllProduct";
 import VisitorList from "../component/VisitorList";
 import Link from "next/link";
@@ -35,6 +57,14 @@ export default function EcomarsDashboard() {
   const [saleproduct, setsaleproduct] = useState(false);
   const [showdue, setshowdue] = useState(false);
   const [showextraprofict, setshowextraprofict] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [reportData, setReportData] = useState(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Fetch orders on component mount
   useEffect(() => {
@@ -73,6 +103,27 @@ export default function EcomarsDashboard() {
     };
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const fetchReport = async () => {
+      const month = String(selectedMonth).padStart(2, "0");
+      const year = selectedYear;
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/businessReport?month=${year}-${month}`
+        );
+        if (!res.ok) {
+          throw new Error("Failed to fetch business report");
+        }
+        const data = await res.json();
+        setReportData(data);
+      } catch (error) {
+        console.error("Error fetching business report:", error);
+        setReportData(null);
+      }
+    };
+    fetchReport();
+  }, [selectedMonth, selectedYear]);
 
   const handlelogout = async () => {
     await fetch("/api/logout", { method: "GET" });
@@ -336,10 +387,55 @@ export default function EcomarsDashboard() {
             {/* Metric Card: Expenses Link */}
             <Link
               href="/dashboard/expence"
-              className="bg-white p-6 rounded-2xl text-center text-red-500 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 text-2xl font-bold"
+              className="cursor-pointer bg-gradient-to-r bg-white text-red-600 md:text-3xl  p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-2xl font-bold transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-teal-500"
             >
               Expenses
             </Link>
+
+            {/* Month and Year Selectors for Report */}
+            <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 flex flex-col items-center justify-center">
+              <h3 className="text-lg font-semibold text-gray-700 mb-4">
+                Monthly Report
+              </h3>
+              <div className="flex gap-2 mb-4">
+                <select
+                  value={selectedMonth}
+                  onChange={(e) => setSelectedMonth(parseInt(e.target.value))}
+                  className="p-2 border rounded-md"
+                >
+                  {[...Array(12).keys()].map((i) => (
+                    <option key={i + 1} value={i + 1}>
+                      {new Date(0, i).toLocaleString("en", { month: "long" })}
+                    </option>
+                  ))}
+                </select>
+                <select
+                  value={selectedYear}
+                  onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                  className="p-2 border rounded-md"
+                >
+                  {[...Array(5).keys()].map((i) => (
+                    <option
+                      key={new Date().getFullYear() - i}
+                      value={new Date().getFullYear() - i}
+                    >
+                      {new Date().getFullYear() - i}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {reportData && mounted ? (
+                <PdfDownloadClient
+                  reportData={reportData}
+                  selectedMonth={selectedMonth}
+                  selectedYear={selectedYear}
+                />
+              ) : (
+                <p className="text-sm text-gray-500">
+                  Select month/year to generate report
+                </p>
+              )}
+            </div>
           </div>
         </section>
 

@@ -64,11 +64,34 @@ export async function POST(request) {
   }
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '8', 10);
+    const sort = searchParams.get('sort') || 'createdAt';
+
     await connectMongodb();
-    const products = await Product.find().sort({ createdAt: -1 }); // sort by newest first
-    return NextResponse.json({ products }, { status: 200 });
+
+    const skip = (page - 1) * limit;
+
+    let products;
+    let total;
+
+    if (sort === 'random') {
+      products = await Product.aggregate([
+        { $sample: { size: limit } }
+      ]);
+      total = await Product.countDocuments();
+    } else {
+      products = await Product.find()
+        .sort({ [sort]: -1 })
+        .skip(skip)
+        .limit(limit);
+      total = await Product.countDocuments();
+    }
+
+    return NextResponse.json({ products, total, page, limit }, { status: 200 });
   } catch (error) {
     console.error("Error fetching products:", error);
     return NextResponse.json(

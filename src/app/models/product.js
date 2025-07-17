@@ -65,7 +65,8 @@ const productSchema = new Schema(
   { timestamps: true }
 );
 
-productSchema.index({ createdAt: -1 }); // Add index for createdAt
+productSchema.index({ createdAt: -1 });
+productSchema.index({ name: 1 }); // Add index for name field
 
 const Product =
   mongoose.models.Product || mongoose.model("Product", productSchema);

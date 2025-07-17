@@ -11,6 +11,8 @@ const expenseSchema = new mongoose.Schema(
   }
 );
 
+expenseSchema.index({ createdAt: -1 });
+
 const Expense =
   mongoose.models.Expense || mongoose.model("Expense", expenseSchema);
 
