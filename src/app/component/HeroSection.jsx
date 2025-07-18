@@ -50,7 +50,7 @@ export default function HeroSection() {
                 {slide.heading}
               </h1>
               <Link href={slide.shopLink}>
-                <button className="mt-8 bg-white text-black px-4 py-2 rounded-sm shadow-lg hover:bg-black hover:text-white transition-all duration-300 font-bold text-lg md:text-xl lg:text-2xl">
+                <button className="mt-8 cursor-pointer bg-white text-black px-4 py-2 rounded-sm shadow-lg hover:bg-black hover:text-white transition-all duration-300 font-bold text-lg md:text-xl lg:text-2xl">
                   Shop Now
                 </button>
               </Link>
@@ -62,7 +62,11 @@ export default function HeroSection() {
             <button
               key={idx}
               onClick={() => setCurrentIndex(idx)}
-              className={`w-3 h-3 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${currentIndex === idx ? "opacity-100 scale-125" : "opacity-50 hover:opacity-75"}`}
+              className={`w-3 h-3 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300 ${
+                currentIndex === idx
+                  ? "opacity-100 scale-125"
+                  : "opacity-50 hover:opacity-75"
+              }`}
               aria-label={`Go to slide ${idx + 1}`}
             ></button>
           ))}

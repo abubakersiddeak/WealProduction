@@ -47,7 +47,7 @@ export default function MainSection() {
         <Link href="/allProduct">
           {" "}
           {/* Use Next.js Link for client-side navigation */}
-          <button className="mt-4 bg-gray-500 text-white px-5 py-2 md:px-12 md:py-3 rounded-sm shadow-lg hover:bg-blue-900 hover:text-white transition-all duration-300 font-bold text-base md:text-xl lg:text-2xl">
+          <button className="mt-4 cursor-pointer bg-gray-500 text-white px-5 py-2 md:px-12 md:py-3 rounded-sm shadow-lg hover:bg-blue-900 hover:text-white transition-all duration-300 font-bold text-base md:text-xl lg:text-2xl">
             {" "}
             Shop Now
           </button>

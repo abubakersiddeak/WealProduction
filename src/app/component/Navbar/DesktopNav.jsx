@@ -1,4 +1,10 @@
-import Link from 'next/link';
+import Link from "next/link";
+import { Oxygen } from "next/font/google";
+
+const oxygen = Oxygen({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+});
 
 const DropdownMenu = ({ label, items }) => (
   <div className="dropdown dropdown-hover">
@@ -26,7 +32,9 @@ const DropdownMenu = ({ label, items }) => (
 
 export default function DesktopNav() {
   return (
-    <div className="hidden relative w-[35%] md:flex lg:flex flex-grow gap-4 lg:gap-8 font-semibold text-lg justify-start ">
+    <div
+      className={`hidden relative w-[35%] md:flex lg:flex flex-grow gap-4 lg:gap-8 font-semibold text-lg justify-start ${oxygen.className}`}
+    >
       <DropdownMenu
         label="Man"
         items={[
@@ -86,9 +94,7 @@ export default function DesktopNav() {
       />
       <DropdownMenu
         label="Offer"
-        items={[
-          { text: "No Offer Available Now", href: "#", isOffer: true },
-        ]}
+        items={[{ text: "No Offer Available Now", href: "#", isOffer: true }]}
       />
     </div>
   );

@@ -3,6 +3,7 @@
   themes: light --default, dark --prefersdark;
   themes: light --default;
 }
+@import url("https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap");
 
 body {
   font-family: var(--font-oxygen);

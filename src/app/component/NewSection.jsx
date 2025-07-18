@@ -147,7 +147,7 @@ export default function NewSection() {
         className="scroll-container flex xl:gap-6 gap-2 overflow-x-hidden md:p-2 font-serif cursor-grab"
       >
         {isLoading
-          ? Array.from({ length: 5 }).map((_, idx) => (
+          ? Array.from({ length: 8 }).map((_, idx) => (
               <ProductSkeleton key={idx} />
             ))
           : products.map((p) => (

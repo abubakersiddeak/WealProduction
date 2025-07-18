@@ -1,18 +1,24 @@
 "use client";
-import { useState, useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useCart } from '@/context/cartContext';
-import Link from 'next/link';
-import Image from 'next/image';
-import DesktopNav from './Navbar/DesktopNav';
-import MobileDrawer from './Navbar/MobileDrawer';
-import SearchBar from './Navbar/SearchBar';
+import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useCart } from "@/context/cartContext";
+import Link from "next/link";
+import Image from "next/image";
+import DesktopNav from "./Navbar/DesktopNav";
+import MobileDrawer from "./Navbar/MobileDrawer";
+import SearchBar from "./Navbar/SearchBar";
+
+import { Anton } from "next/font/google";
+const anton = Anton({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export default function Navbar() {
   const { cartItems } = useCart();
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const drawerCheckboxRef = useRef(null);
@@ -25,9 +31,9 @@ export default function Navbar() {
       }
     };
     // The `router.events` API is deprecated, so we listen to the `routeChangeComplete` event on the router instance itself.
-    router.events?.on('routeChangeComplete', handleRouteChange);
+    router.events?.on("routeChangeComplete", handleRouteChange);
     return () => {
-      router.events?.off('routeChangeComplete', handleRouteChange);
+      router.events?.off("routeChangeComplete", handleRouteChange);
     };
   }, [router]);
 
@@ -46,7 +52,7 @@ export default function Navbar() {
   }, [searchQuery]);
 
   const handleSelect = (item) => {
-    setSearchQuery(item.name || ''); // Ensure searchQuery is always a string
+    setSearchQuery(item.name || ""); // Ensure searchQuery is always a string
     setSuggestions([]);
     router.push(`/dynamic/${item._id}`);
   };
@@ -57,7 +63,7 @@ export default function Navbar() {
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -67,18 +73,26 @@ export default function Navbar() {
       <div className="container mx-auto h-[80px] flex justify-between items-center px-4 md:px-6 lg:px-8">
         <DesktopNav />
 
-        <div className="flex items-center gap-2 flex-shrink-0 justify-center">
-          <Link href={'/'} className="relative h-12 w-12 sm:h-16 sm:w-16 lg:h-20 lg:w-20 flex-shrink-0">
+        <div className="flex items-center gap-3 flex-shrink-0 justify-center px-3 py-1 rounded-lg border-b-2">
+          <Link
+            href="/"
+            className="relative h-10 w-10 sm:h-12 sm:w-12 lg:h-10 lg:w-16 flex-shrink-0 rounded-lg bg-gradient-to-br from-pink-50 to-cyan-100 shadow-lg hover:scale-105 transition-transform duration-300"
+          >
             <Image
-              src="/WEinscape.png"
+              src="/weal.svg"
               alt="WealShop Logo"
               fill
               sizes="(max-width: 640px) 48px, (max-width: 1024px) 64px, 80px"
-              style={{ objectFit: 'contain' }}
+              style={{ objectFit: "contain" }}
               priority
+              className="p-1"
             />
           </Link>
-          <Link href={'/'} className="text-3xl lg:text-[55px] font-extrabold text-gray-800 ">
+
+          <Link
+            href="/"
+            className={`text-3xl sm:text-4xl lg:text-[40px] font-sp font-extrabold ${anton.className} text-blue-950 tracking-wide `}
+          >
             WEAL
           </Link>
         </div>
@@ -140,7 +154,7 @@ export default function Navbar() {
             <div className="drawer-content ">
               <label htmlFor="my-drawer" className="btn btn-ghost p-0 m-0">
                 <Image
-                  src={'/menu-symbol-of-three-parallel-lines-svgrepo-com.svg'}
+                  src={"/menu-symbol-of-three-parallel-lines-svgrepo-com.svg"}
                   alt="Menu icon"
                   height={24}
                   width={24}
