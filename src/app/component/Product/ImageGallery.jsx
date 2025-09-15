@@ -1,9 +1,11 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
-import Image from 'next/image';
+import React, { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 
 export default function ImageGallery({ images }) {
-  const [activeImage, setActiveImage] = useState(images[0] || "/placeholder.jpg");
+  const [activeImage, setActiveImage] = useState(
+    images[0] || "/placeholder.jpg"
+  );
   const [zoomed, setZoomed] = useState(false);
   const [backgroundPosition, setBackgroundPosition] = useState("center");
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -33,12 +35,12 @@ export default function ImageGallery({ images }) {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center md:space-y-5">
       <div
         ref={containerRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="w-[90vw] h-[60vh] sm:w-[300px] sm:h-[400px] md:w-[400px] md:h-[500px] overflow-hidden bg-no-repeat bg-cover transition duration-300 ease-in-out"
+        className="w-[90vw] h-[60vh] sm:w-[300px] sm:h-[400px] md:w-[400px] md:h-[400px] overflow-hidden bg-no-repeat bg-cover transition duration-300 ease-in-out"
         style={{
           backgroundImage: `url(${activeImage})`,
           backgroundSize: zoomed ? "200%" : "contain",
@@ -55,7 +57,11 @@ export default function ImageGallery({ images }) {
             width={64}
             height={64}
             unoptimized
-            className={`w-16 h-16 object-cover cursor-pointer rounded-md transition-all duration-200 ${activeImage === img ? "border-2 border-blue-500 scale-105 shadow-md" : "border border-gray-300"}`}
+            className={`w-16 h-16 object-cover cursor-pointer rounded-md transition-all duration-200 ${
+              activeImage === img
+                ? "border-2 border-blue-500 scale-105 shadow-md"
+                : "border border-gray-300"
+            }`}
             onClick={() => {
               setActiveImage(img);
               setZoomed(false);

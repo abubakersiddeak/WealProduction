@@ -14,16 +14,22 @@ export default function Product({ product, relatedProducts }) {
 
   return (
     <>
-      <div className="relative w-full max-w-[90vw] mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+      <div className="relative 2xl:mt-10 w-full max-w-[90vw] mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 ">
         <ImageGallery images={product.images || []} />
-        <ProductInfo product={product} onAddToCartSuccess={handleAddToCartSuccess} />
+        <ProductInfo
+          product={product}
+          onAddToCartSuccess={handleAddToCartSuccess}
+        />
       </div>
 
       {relatedProducts && relatedProducts.length > 0 && (
         <RelatedProducts relatedProducts={relatedProducts} />
       )}
 
-      <CartDrawer isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
+      <CartDrawer
+        isOpen={isDrawerOpen}
+        onClose={() => setIsDrawerOpen(false)}
+      />
     </>
   );
 }

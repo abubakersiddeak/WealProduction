@@ -123,14 +123,14 @@ export default function NewSection() {
 
       <button
         onClick={scrollLeftFunc}
-        className="absolute hidden lg:block cursor-pointer left-0 top-1/2 transform -translate-y-1/2 z-40 text-gray-700  bg-gray-300  p-2 rounded-full"
+        className="absolute hidden lg:block cursor-pointer left-3 top-1/2 transform -translate-y-1/2 z-40 text-gray-700  bg-gray-300/50  p-2 rounded-full"
       >
         ❮
       </button>
 
       <button
         onClick={scrollRightFunc}
-        className="absolute hidden lg:block cursor-pointer right-0 top-1/2 transform -translate-y-1/2 z-40 text-gray-700 bg-gray-300 p-2 rounded-full"
+        className="absolute hidden lg:block cursor-pointer right-0 top-1/2 transform -translate-y-1/2 z-40 text-gray-700 bg-gray-300/50 p-2 rounded-full"
       >
         ❯
       </button>
@@ -154,9 +154,9 @@ export default function NewSection() {
               <button
                 onClick={(e) => productClick(e, p)}
                 key={p._id}
-                className="relative cursor-pointer w-70 md:w-80 bg-white overflow-hidden hover:scale-[1.02] shrink-0 transition-all duration-500"
+                className="relative cursor-pointer w-43 md:w-55 2xl:w-70 bg-white overflow-hidden hover:scale-[1.02] shrink-0 transition-all duration-500  flex flex-col justify-between  border-b border-gray-600"
               >
-                <div className="relative z-10 flex items-center justify-center h-90 md:h-120 ">
+                <div className="relative z-10  h-60 md:h-70  2xl:h-100  ">
                   <Image
                     src={p.images[0]}
                     alt={p.name}
@@ -167,7 +167,7 @@ export default function NewSection() {
                   />
                 </div>
 
-                <div className="relative z-10 p-4 text-black text-left">
+                <div className="relative z-10 py-3 text-black text-left">
                   <h2 className="text-xs md:text-xl font-serif">{p.name}</h2>
                   <p className="text-sm md:text-base opacity-80 mt-1">
                     {p.salePrice} TK

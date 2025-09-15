@@ -86,7 +86,7 @@ export default function CartDrawer({ isOpen, onClose }) {
           <h2 className="text-2xl font-bold text-gray-800">Your Cart</h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-3xl font-light leading-none transition-colors"
+            className="cursor-pointer text-gray-500 hover:text-gray-700 text-3xl font-light leading-none transition-colors"
             aria-label="Close cart drawer"
           >
             &times;
@@ -172,7 +172,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                             item.quantity - 1
                           )
                         }
-                        className="px-2 py-1 text-md text-gray-700 hover:bg-gray-100 rounded-l-md"
+                        className="cursor-pointer px-2 py-1 text-md text-gray-700 hover:bg-gray-100 rounded-l-md"
                         aria-label="Decrease quantity"
                       >
                         <HiMinusSm />
@@ -192,7 +192,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                             item.quantity + 1
                           )
                         }
-                        className="px-2 py-1 text-md text-gray-700 hover:bg-gray-100 rounded-r-md"
+                        className="cursor-pointer px-2 py-1 text-md text-gray-700 hover:bg-gray-100 rounded-r-md"
                         aria-label="Increase quantity"
                       >
                         <HiPlusSm />
@@ -205,7 +205,7 @@ export default function CartDrawer({ isOpen, onClose }) {
                   </div>
                   <button
                     onClick={() => handleRemove(productDetails, item.size)}
-                    className="text-red-500 hover:text-red-700 ml-3 flex-shrink-0 p-1"
+                    className=" cursor-pointer text-red-500 hover:text-red-700 ml-3 flex-shrink-0 p-1"
                     aria-label="Remove item"
                   >
                     <FaTrashAlt />
@@ -229,7 +229,7 @@ export default function CartDrawer({ isOpen, onClose }) {
             </div>
             <button
               onClick={handleProceedToCheckout}
-              className={`w-full text-white px-6 py-3 cursor-pointer rounded-lg text-lg font-semibold transition-all duration-300 ${
+              className={` w-full text-white px-6 py-3 cursor-pointer rounded-lg text-lg font-semibold transition-all duration-300 ${
                 isCheckoutDisabled
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-black hover:bg-gray-700 cursor-pointer"
