@@ -73,3 +73,47 @@ Here are some screenshots of WealApp in action:
     "tailwindcss": "^4"
   }
 }
+```
+
+---
+## Run Locally
+
+Follow these steps to run **WealApp** on your local machine:
+
+
+### 1️⃣ Clone the repository
+```bash
+git clone <https://github.com/abubakersiddeak/WealProduction.git>
+```
+
+## 2️⃣ Navigate into the project folder
+```bash
+cd wealapp
+```
+
+## 3️⃣ Install dependencies
+```bash
+npm install
+```
+## 4️⃣ Create a .env file
+```env
+JWT_SECRET="your secret"
+NEXT_PUBLIC_BASE_URL="your base url"
+CLOUDINARY_URL="your cloudinary url"
+CLOUDINARY_API_SECRET="your api secret"
+CLOUDINARY_API_KEY="your api key"
+CLOUDINARY_CLOUD_NAME="your cloud name"
+
+MONGODB_URI="your mongodb uri"
+
+```
+## 5️⃣ Start the development server
+```bash
+npm run dev
+```
+## 6️⃣ Build for production 
+```bash
+npm run build
+npm start
+```
+
